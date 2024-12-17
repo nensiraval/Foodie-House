@@ -34,6 +34,9 @@ public class LoginPage extends AppCompatActivity {
         MyDataBase db = new MyDataBase (LoginPage.this);
 
 
+                String UserName = user.getText().toString();
+                startActivity(new Intent(LoginPage.this,Frecipe.class).putExtra("Username",UserName));
+
         Login1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

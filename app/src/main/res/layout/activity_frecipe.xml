@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:orientation="vertical"
-    android:background="@drawable/backgroud1"
+    android:background="@drawable/b2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Frecipe">
 
     <TextView
+        android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Recipe List"
@@ -30,10 +31,23 @@
         android:layout_marginEnd="5dp"
         android:src="@drawable/more" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/welcome"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/list"
+        android:textStyle="bold"
+        android:fontFamily="cursive"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:layout_marginStart="20dp"/>
+
     <GridView
         android:id="@+id/blist"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:numColumns="2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/welcome"/>
 </RelativeLayout>
