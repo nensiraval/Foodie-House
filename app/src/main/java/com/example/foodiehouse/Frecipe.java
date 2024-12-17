@@ -53,7 +53,21 @@ public class Frecipe extends AppCompatActivity {
         more = findViewById(R.id.more);
         welcome = findViewById(R.id.welcome);
 
+        SharedPreferences preferences = getSharedPreferences("MyData", MODE_PRIVATE);
+        SharedPreferences.Editor editor =preferences.edit();
 
+//        editor.putBoolean("data",true);
+        editor.putBoolean("Username",true);
+        editor.apply();
+
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("Username");
+
+        if (username != null && !username.isEmpty()) {
+            welcome.setText("Welcome, " + username + "!");
+        } else {
+            welcome.setText("Welcome!");
+        }
 
         Myclass dishname = new Myclass(DishNames, DishImage, Frecipe.this);
         blist.setAdapter(dishname);

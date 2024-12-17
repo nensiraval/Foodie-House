@@ -34,9 +34,6 @@ public class LoginPage extends AppCompatActivity {
         MyDataBase db = new MyDataBase (LoginPage.this);
 
 
-                String UserName = user.getText().toString();
-                startActivity(new Intent(LoginPage.this,Frecipe.class).putExtra("Username",UserName));
-
         Login1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +42,7 @@ public class LoginPage extends AppCompatActivity {
                 SharedPreferences.Editor editor =preferences.edit();
 
                 editor.putBoolean("data",true);
+                editor.putBoolean("Username",true);
                 editor.apply();
 
                 String number = password.getText().toString();
@@ -63,7 +61,8 @@ public class LoginPage extends AppCompatActivity {
                     Log.e("+++++", "name : "+data.getInt(0));
                     Log.e("+++++", "password : "+data.getInt(1));
 
-                    startActivity(new Intent(LoginPage.this, startcooking.class));
+                    String UserName = user.getText().toString();
+                    startActivity(new Intent(LoginPage.this, Frecipe.class).putExtra("Username", UserName));
                     finish();
                 }
             }
