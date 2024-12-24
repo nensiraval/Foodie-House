@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 public class Frecipe extends AppCompatActivity {
     ImageView more;
-    GridView blist;
+    GridView blist; SearchView search;
     TextView welcome;
 
     String[] DishNames = {"Poha", "Dhokla", "Fafda", "Khandvi", "Khakra", "Aloo Methi Paratha", "Moong Dal Cheela", "Oats Khichdi", "Rava Upma", "Matar Ka Paratha",
@@ -52,21 +52,22 @@ public class Frecipe extends AppCompatActivity {
         blist = findViewById(R.id.blist);
         more = findViewById(R.id.more);
         welcome = findViewById(R.id.welcome);
+        search = findViewById(R.id.search);
 
         SharedPreferences preferences = getSharedPreferences("MyData", MODE_PRIVATE);
         SharedPreferences.Editor editor =preferences.edit();
 
-//        editor.putBoolean("data",true);
         editor.putBoolean("Username",true);
         editor.apply();
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("Username");
 
+
         if (username != null && !username.isEmpty()) {
             welcome.setText("Welcome, " + username + "!");
         } else {
-            welcome.setText("Welcome!");
+            welcome.setText("Welcome !");
         }
 
         Myclass dishname = new Myclass(DishNames, DishImage, Frecipe.this);
@@ -78,6 +79,37 @@ public class Frecipe extends AppCompatActivity {
                 Log.d("__________________", "onItemClick() returned: " + position);
                 String object = DishNames[position];
                 startActivity(new Intent(Frecipe.this, Recipeshow.class).putExtra("Dishname", object));
+            }
+        });
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.e("===", "onQueryTextSubmit: " + query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.e("+++++", "onQueryTextChange: "+newText);
+                ArrayList<String> DishesName = new ArrayList<>();
+                ArrayList<Integer> DishesImages = new ArrayList<>();
+
+                for (int i = 0; i < DishNames.length; i++) {
+                    if (DishNames[i].toLowerCase().contains(newText.toLowerCase())) {
+                        DishesName.add(DishNames[i]);
+                        DishesImages.add(DishImage[i]);
+                    }
+                }
+
+                String[] updatedNames = DishesName.toArray(new String[0]);
+                int[] updatedImages = new int[DishesImages.size()];
+                for (int i = 0; i < DishesImages.size(); i++) {
+                    updatedImages[i] = DishesImages.get(i);
+                }
+                Myclass updatedAdapter = new Myclass(updatedNames, updatedImages, Frecipe.this);
+                blist.setAdapter(updatedAdapter);
+                return true;
             }
         });
 
@@ -106,7 +138,6 @@ public class Frecipe extends AppCompatActivity {
                 });
             }
         });
-
     }
 }
 

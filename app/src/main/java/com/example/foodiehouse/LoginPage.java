@@ -42,8 +42,6 @@ public class LoginPage extends AppCompatActivity {
                 SharedPreferences.Editor editor =preferences.edit();
 
                 editor.putBoolean("data",true);
-                editor.putBoolean("Username",true);
-                editor.apply();
 
                 String number = password.getText().toString();
                 if (number.isEmpty())
